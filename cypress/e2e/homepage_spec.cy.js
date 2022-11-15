@@ -16,11 +16,25 @@ describe('Homepage flow', () => {
   it('user can view the form with proper inputs', () => {
     cy.get('[placeholder="Title..."]').should('exist')
     cy.get('[placeholder="URL to Shorten..."]').should('exist')
-    cy.get('[placeholder="URL to Shorten..."]').should('exist')
+    cy.get('button').should('exist')
   })
   it('user can fill out the form, information is reflected in the input fields', () => {
     cy.get('[placeholder="Title..."]').type('Beth')
     cy.get('[placeholder="URL to Shorten..."]').type('http://beth.org/oulkjsdfwe')
   })
 
+  it('user can fill out the form, submit and view the card on the homepage', () => {
+    cy.get('[placeholder="Title..."]').type('Beth')
+    .get('[placeholder="URL to Shorten..."]').type('http://beth.org/oulkjsdfwe')
+    .get('button').click()
+    cy.intercept('POST', 'http://localhost:3001/api/v1/urls', {
+      statusCode: 201, 
+      body: {
+        title: "Beth",
+        long_url: "http://beth.org/oulkjsdfwe",
+        short_url: "http://localhost:3001/useshorturl/22"
+      }
+    })
+    .get('.url').last()
+  })
 })
