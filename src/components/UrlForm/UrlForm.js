@@ -26,7 +26,6 @@ class UrlForm extends Component {
       .then(this.clearInputs())
       .catch(err => console.error('Error fetching data', err))
     
-    
   }
 
 
