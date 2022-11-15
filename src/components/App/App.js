@@ -8,7 +8,8 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      urls: []
+      urls: [],
+      error: ''
     }
   }
 
@@ -36,6 +37,7 @@ export class App extends Component {
       <main className="App">
         <header>
           <h1>URL Shortener</h1>
+          {!this.state.urls.length && <h2>No shortened urls, please add some</h2>}
           <UrlForm addUrl={this.addUrl}/>
         </header>
 
